@@ -1,0 +1,29 @@
+Powershell ile OneDrive silinen kullanıcının dosyalarını geri alma ve yetkilendirme -ExchangeOnline 
+
+Öncellikle PC nizdeki powerhsell inize Sharepoint modülünü yüklemeniz gerekir. 
+
+Install-Module -Name Microsoft.Online.SharePoint.PowerShell -Scope CurrentUser 
+
+Bu işlem tamamlandıktan sonra Sharepoint adresinizi bulup bağlanmanız gerekir. 
+
+Connect-SPOService -Url https://contoso-admin.sharepoint.com -Credential  yetkilli@mail.com 
+
+Ardından silinen kullanıcı listesini aşağıdaki cmdlet ile alabilirsiniz. 
+
+
+Get-SPODeletedSite -IncludeOnlyPersonalSite | FT url 
+
+Kurtarmak istediğiniz mail adresini seçip linkini kopyalayın ardından aşağıdaki cmdlet de bulunan ilgili konuma yazın  
+
+
+Restore-SPODeletedSite -Identity {SharePointUrl} 
+
+Ardından belirttiğiniz adres için aktif kullanıcılar arasından birini seçip yetki tanımlaması yapabilirsiniz. 
+
+Set-SPOUser -Site{ SharePointUrl } -LoginName yetkiliadres@mail.com -IsSiteCollectionAdmin $True 
+
+-Site : Geri dönüştürülen adres 
+
+-LoginName : Yetki vereceğiniz adres. 
+
+ 
