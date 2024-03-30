@@ -1,0 +1,9 @@
+# This powershell command intent  get a specific user's membership with group mail address.
+
+$groups = Get-ADPrincipalGroupMembership -Identity "useraccountname" | select name
+foreach ($group in $groups){
+ 
+        $mail = Get-ADGroup -Property "mail" -Identity $group.name | select mail
+        Write-Host $mail
+}
+ 
