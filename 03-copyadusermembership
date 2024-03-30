@@ -1,0 +1,3 @@
+# This shell command intent copy membership to another user.
+
+Get-ADUser -Identity adam.lewis -Properties memberof | Select-Object -ExpandProperty memberof | Add-ADGroupMember -Members james.knutson
