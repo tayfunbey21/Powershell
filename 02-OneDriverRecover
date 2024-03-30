@@ -1,29 +1,28 @@
-Powershell ile OneDrive silinen kullanıcının dosyalarını geri alma ve yetkilendirme -ExchangeOnline 
+Recover Deleted User One Drive File with PowerShell - ExchangeOnline
 
-Öncellikle PC nizdeki powerhsell inize Sharepoint modülünü yüklemeniz gerekir. 
+First Of All, You have to Import Exchange Online shell modul your Shell.
 
 Install-Module -Name Microsoft.Online.SharePoint.PowerShell -Scope CurrentUser 
 
-Bu işlem tamamlandıktan sonra Sharepoint adresinizi bulup bağlanmanız gerekir. 
+After that you have to find sharepoint url
 
 Connect-SPOService -Url https://contoso-admin.sharepoint.com -Credential  yetkilli@mail.com 
 
-Ardından silinen kullanıcı listesini aşağıdaki cmdlet ile alabilirsiniz. 
-
+After that you can find the deleted user list with bellow command.
 
 Get-SPODeletedSite -IncludeOnlyPersonalSite | FT url 
 
-Kurtarmak istediğiniz mail adresini seçip linkini kopyalayın ardından aşağıdaki cmdlet de bulunan ilgili konuma yazın  
-
+Choose the mail account which you want to recover and copy and paste to bellow command relative area.{SharePoint Url}
 
 Restore-SPODeletedSite -Identity {SharePointUrl} 
 
-Ardından belirttiğiniz adres için aktif kullanıcılar arasından birini seçip yetki tanımlaması yapabilirsiniz. 
+Finally  You have to take permission you can definde the admin acount for deleted user with -LoginName area
+
 
 Set-SPOUser -Site{ SharePointUrl } -LoginName yetkiliadres@mail.com -IsSiteCollectionAdmin $True 
 
--Site : Geri dönüştürülen adres 
+-Site : Recovered Adresss
 
--LoginName : Yetki vereceğiniz adres. 
+-LoginName : Admin Account.
 
  
